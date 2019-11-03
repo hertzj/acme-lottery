@@ -65,12 +65,6 @@ class App extends Component {
         return take
     }
 
-    componentDidMount() {
-        // this.generateMega();
-        // this.generatePower();
-        // this.generateTake();
-    }
-
     update = (mega, powerball, take) => {
         this.setState({mega, powerball, take})
     }
@@ -85,7 +79,6 @@ class App extends Component {
         return (
             <HashRouter>
                 <Route render={(props) => <Nav { ...props } /> } />
-                {/* <Route path='/' render={ (props) => <Home {...props} take={ take } powerball={ powerball } mega={ mega } update={ update } /> } /> */}
                 <Route exact path='/' render={ (props) => <Home {...props} generatePower = {generatePower} generateTake = {generateTake} generateMega = {generateMega} update={update}/> } />
                 <Route exact path='/games/powerball' render={ () => <PowerBall  powerball={powerball} /> }/>
                 <Route exact path='/games/megamillions' render={ () => <MegaMillions  mega={mega} /> }/>
@@ -186,18 +179,10 @@ class Home extends Component {
         const take = this.state.generateTake();
         this.setState({ mega, powerball, take })
         this.state.update(mega, powerball, take)
-        // const [take, powerball, mega] = this.state.update;
-        // const data = this.state.update();
-        // const take = data[0];
-        // const powerball = data[1];
-        // const mega = data[2];
-        // this.setState({take, powerball, mega})
-        // console.log('in cdm', data)
     }
 
     changeGame = () => {
         const game = document.querySelector('select').value
-        // console.log(game)
         this.setState({ game })
     }
 
@@ -267,8 +252,6 @@ class Home extends Component {
         const { game } = this.state;
         const { values } = this.state
         const given = Object.values(values);
-        // console.log(given);
-        // console.log(game);
         let matches = 0;
         let specialMatch = 0;
         if (game === 'powerball') {
@@ -282,7 +265,6 @@ class Home extends Component {
                     matches++
                 }
             }
-            // this.powerBallCheck()
         }
         else if (game === 'megamillions') {
             const { mega } = this.state
@@ -295,7 +277,6 @@ class Home extends Component {
                     matches++
                 }
             }
-            // this.megaCheck()
         }
         else if (game === 'takefive') {
             const { take } = this.state
@@ -305,17 +286,17 @@ class Home extends Component {
                     matches++
                 }
             }
-            // this.takeFiveCheck()
         }
 
-        // console.log('matches: ', matches)
-        // console.log('take: ', this.state.take)
-        // console.log('values: ', this.state.values);
         this.setState({matches, specialMatch})
     }
 
 
     handleChange = ev => {
+        if (ev.target.value.length > 2) {
+            ev.target.value = ''
+        }
+        
         const newValue = Number(ev.target.value);
         const name = ev.target.name;
         const { values } = this.state;
@@ -329,7 +310,6 @@ class Home extends Component {
     render() {
         const {changeGame, onClick} = this;
         const { game, checked, matches, specialMatch } = this.state
-        // console.log('powerball in home: ', this.state.powerball)
         return (
             <div id='home'>
                 <h1>Acme Lottery</h1>
