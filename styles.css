@@ -1,0 +1,34 @@
+#boxes, .boxes {
+    display: flex;
+}
+
+.box {
+    height: 30px;
+    width: 30px;
+    border: 1px solid black;
+}
+
+.special {
+    background-color: tomato;
+}
+
+.results, #home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    background-color: tomato
+}
+
+.header {
+    padding: 5px;
+    background-color: dodgerblue
+}
+
+.selected {
+    background-color: white;
+}
